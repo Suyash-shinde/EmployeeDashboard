@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Link, Paper, TextField, Typography } from "@mui/material"
+import { Alert, Box, Button, Container, Grid, Link, Paper, Snackbar, TextField, Typography } from "@mui/material"
 import { useState } from "react"
 import {Link as RouterLink, useNavigate} from 'react-router-dom'
 const Login = () => {
@@ -8,6 +8,7 @@ const Login = () => {
         password:""
         });
     const navigate = useNavigate();
+      const [openSnackbar, setOpenSnackbar] = useState(false);
    const handleChange = (e)=>{
         setUser({...user ,[e.target.name]:e.target.value});
     }
@@ -23,10 +24,13 @@ const Login = () => {
         e.preventDefault();
         if(handleValidate()){
            sessionStorage.setItem("loggedInToken", true); 
-           navigate("/dashboard");
-           console.log("Submitted", user);
-        }
+             setOpenSnackbar(true); 
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
     }
+                  }
     return (
     <Container maxWidth="xs">
             <Paper elevation={10} sx={{marginTop:8,p:2} }> 
@@ -46,6 +50,17 @@ const Login = () => {
                     </Grid>
                 </Box>
             </Paper>
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={1000}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity="success" sx={{ width: '100%' }}>
+          Login Successful!
+        </Alert>
+      </Snackbar>
     </Container>
            )
 }

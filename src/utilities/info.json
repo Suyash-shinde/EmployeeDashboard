@@ -1,0 +1,9 @@
+{
+    "empID":"#DAC13B9E",
+    "name":"John Doe",
+    "salary" : "10,00,00",
+    "address" : "Aishwariyam Greens, near kaspate chowk, wakad, Pune, Maharashtra",
+    "empDepartment" : "Technical Head",
+    "email" : "John.Doe@example.com",
+    "techStack" : ["JavaScript", "TypeScript", "python", "java", "SQL", "ReactJs", "AngularJs", "HTML", "CSS", "Redux", "MongoDb", "Git", "Docker"]
+}
