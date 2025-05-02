@@ -34,7 +34,7 @@ const Dashboard = () => {
                                 {user.username[0].toUpperCase()}
                             </Avatar>
                             <Typography variant="h6">{user.username}</Typography>
-                            <Typography variant="body1" color="text.secondary">
+                            <Typography variant="body1" color="text.secondary" sx={{ textWrap:"wrap",  textAlign: "justify"}}>
                                 {user.email}
                             </Typography>
                             <Typography variant="body1" color="text.secondary" sx={{ mt: 4, textWrap: "wrap", textAlign: "justify" }}>

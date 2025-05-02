@@ -3,6 +3,7 @@ import Login from "./Login"
 import Register from "./Register"
 import ProtectedRoute from "./utilities/ProtectedRoute"
 import Dashboard from "./Dashboard"
+import Forgot from "./Forgot"
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
   <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Login/>}/>
+                <Route path="/forgot" element={<Forgot/>}/>
                 <Route element={<ProtectedRoute/>}>
                     <Route path="/dashboard" element={<Dashboard/>}/>
                 </Route>

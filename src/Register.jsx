@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Link, Paper, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, Grid, Link, Paper, Snackbar, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,14 @@ const Register = () => {
         email: "",
         confirmPassword: "",
     });
-
+    const [anchorEl, setAnchorEl] = useState(null);
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };  
+    const [openSnackbar, setOpenSnackbar] = useState(false);
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
@@ -48,8 +55,14 @@ const Register = () => {
         e.preventDefault();
         if (handleValidate()) {
             sessionStorage.setItem("credentials", JSON.stringify(user));
+            sessionStorage.setItem("loggedInToken", true);
             console.log("Submitted", user);
-            navigate("/dashboard");
+            setOpenSnackbar(true);
+
+            setTimeout(() => {
+                navigate("/dashboard");
+            }, 1000);
+            
         }
     };
 
@@ -117,6 +130,16 @@ const Register = () => {
                     </Grid>
                 </Box>
             </Paper>
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={1000}
+                onClose={() => setOpenSnackbar(false)}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert severity="success" sx={{ width: '100%' }}>
+                    Registration Successful!
+                </Alert>
+            </Snackbar>
         </Container>
     );
 };
