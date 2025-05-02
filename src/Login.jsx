@@ -8,13 +8,20 @@ const Login = () => {
         password:""
         });
     const navigate = useNavigate();
-      const [openSnackbar, setOpenSnackbar] = useState(false);
+      const [openSnackbar, setOpenSnackbar] = useState({open:false , message:"", success:"success"});
    const handleChange = (e)=>{
         setUser({...user ,[e.target.name]:e.target.value});
     }
     const handleValidate = () =>{
         const credentialsString = sessionStorage.getItem("credentials");
         const credentials=JSON.parse(credentialsString);
+        if(credentials===null){
+            setOpenSnackbar({open:true , message:"No User Found, Please Register", success:"error"});
+            setTimeout(() => {
+              navigate("/register");
+            }, 1000);
+            return 
+        }
         console.log(credentials);
         if(user.username!==credentials.username) return false;
         if(user.password!==credentials.password) return false;
@@ -24,7 +31,7 @@ const Login = () => {
         e.preventDefault();
         if(handleValidate()){
            sessionStorage.setItem("loggedInToken", true); 
-             setOpenSnackbar(true); 
+             setOpenSnackbar({open:true , message:"Login Successful", success:"success"}); 
 
       setTimeout(() => {
         navigate("/dashboard");
@@ -57,8 +64,8 @@ const Login = () => {
         onClose={() => setOpenSnackbar(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <Alert severity="success" sx={{ width: '100%' }}>
-          Login Successful!
+        <Alert severity={openSnackbar.success} sx={{ width: '100%' }}>
+          {openSnackbar.message}
         </Alert>
       </Snackbar>
     </Container>
